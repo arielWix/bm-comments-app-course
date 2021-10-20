@@ -1,0 +1,14 @@
+[
+  {
+    "appName": "bm-comments-app-course.pages.index",
+    "notifications": {
+      "slack_channels": [
+        "bm-comments-app-course-urgent"
+      ]
+    },
+    "deploy_annotations": [
+      "bm-comments-app-course"
+    ],
+    "ignore_first_request_roundtrip": true
+  }
+]

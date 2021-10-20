@@ -1,0 +1,20 @@
+{
+  "moduleId": "BM_COMMENTS_APP_COURSE",
+  "appDefinitionId": "e5aee9e0-dbb6-462d-b396-d910ae1689b4",
+  "isCoreService": true,
+  "routeNamespace": "bm-comments-app-course",
+  "translations": {
+    "enabled": true
+  },
+  "sentry": {
+    "DSN": "https://a59ade6a47b44716a907bf2c80c6b425@sentry.wixpress.com/2249",
+    "id": "a59ade6a47b44716a907bf2c80c6b425",
+    "projectName": "bm-comments-app-course",
+    "teamName": "bmcontactscourse",
+    "errorMonitor": true
+  },
+  "experiments": {
+    "centralized": true
+  },
+  "enabledByExperiments": ["specs.infra.yoshi-bm.ChangeMe"]
+}
