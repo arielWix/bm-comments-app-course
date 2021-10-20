@@ -43,6 +43,7 @@
     "typescript": "~4.1.2"
   },
   "dependencies": {
+    "@wix/ambassador-node-workshop-scala-app": "^1.0.19",
     "wix-style-react": "^9.0.0"
   },
   "jest": {

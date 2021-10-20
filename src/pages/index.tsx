@@ -1,33 +1,45 @@
-import React, { FC } from 'react';
-import { useTranslation, useAppLoaded, Trans } from '@wix/yoshi-flow-bm';
-import { Page, Layout, Cell, Card, Text } from 'wix-style-react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
+import { useAppLoaded, useHttpClient } from '@wix/yoshi-flow-bm';
 
-const introUrl = 'https://github.com/wix-private/business-manager';
+import { addComment, fetchComments } from '../api/comments.api';
 
 const Index: FC = () => {
   useAppLoaded({ auto: true });
 
-  const { t } = useTranslation();
+  const httpClient = useHttpClient();
+  const [text, setText] = useState('');
+  const [savedComments, setComments] = useState<string[]>([]);
+
+  const refreshData = useCallback(async () => {
+    try {
+      const comments = await httpClient.request(fetchComments());
+      setComments(comments.data.comments.map((c) => c.text));
+      setText('');
+    } catch (e) {}
+  }, [httpClient]);
+
+  useEffect(() => {
+    refreshData();
+  }, [refreshData]);
+
+  const handleSubmit = async () => {
+    try {
+      await httpClient.request(addComment(text));
+      await refreshData();
+    } catch (e) {}
+  };
 
   return (
-    <Page>
-      <Page.Header dataHook="app-title" title={t('app.title')} />
-      <Page.Content>
-        <Layout>
-          <Cell>
-            <Card>
-              <Card.Content>
-                <Text dataHook="get-started">
-                  <Trans i18nKey="app.get-started">
-                    GET STARTED <a href={introUrl}>HERE</a>
-                  </Trans>
-                </Text>
-              </Card.Content>
-            </Card>
-          </Cell>
-        </Layout>
-      </Page.Content>
-    </Page>
+    <div>
+      <input type="text" onChange={(e) => setText(e.target.value)} />
+      <button onClick={handleSubmit}> Click Me! </button>
+      <div>List of comments:</div>
+      <div>
+        {savedComments?.map((comment) => (
+          <div>{comment}</div>
+        ))}
+      </div>
+    </div>
   );
 };
 
